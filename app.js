@@ -76,16 +76,18 @@ app.get('/todos/:id/edit', (req, res) => {
 // 設定一條新的路由，來接住表單資料，並且把資料送往資料庫。
 app.post('/todos/:id/edit', (req, res) => {
   const id = req.params.id
-  const name = req.body.name
+  //const name = req.body.name
+  const { name, isDone } = req.body
   return Todo.findById(id)
     .then(todo => {
       todo.name = name
+      todo.isDone = isDone === 'on'
       return todo.save()
     })
     .then(() => res.redirect(`/todos/${id}`))
     .catch(error => console.log(error))
 })
-
+// 刪除功能。
 app.post('/todos/:id/delete', (req, res) => {
   const id = req.params.id
   return Todo.findById(id)
