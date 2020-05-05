@@ -73,6 +73,7 @@ app.get('/todos/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// 設定一條新的路由，來接住表單資料，並且把資料送往資料庫。
 app.post('/todos/:id/edit', (req, res) => {
   const id = req.params.id
   const name = req.body.name
@@ -85,6 +86,13 @@ app.post('/todos/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
+app.post('/todos/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Todo.findById(id)
+    .then(todo => todo.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
 // 設定 port 3000
 app.listen(3000, () => {
   console.log('App is running on http://localhost:3000')
