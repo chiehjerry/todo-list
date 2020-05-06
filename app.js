@@ -6,6 +6,8 @@ const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 // 引用 body-parser
 const bodyParser = require('body-parser')
+// 載入 method-override
+const methodOverride = require('method-override')
 // 載入 Todo model
 const Todo = require('./models/todo')
 
@@ -32,6 +34,9 @@ app.set('view engine', 'hbs')
 
 // 用 app.use 規定每一筆請求都需要透過 bodyParser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
+
+// 設定每一筆請求都會透過 methodOverride 進行前置處理
+app.use(methodOverride('_method'))
 
 // 設定首頁路由
 app.get('/', (req, res) => {
@@ -75,7 +80,7 @@ app.get('/todos/:id/edit', (req, res) => {
 })
 
 // 設定一條新的路由，來接住表單資料，並且把資料送往資料庫。
-app.post('/todos/:id/edit', (req, res) => {
+app.put('/todos/:id', (req, res) => {
   const id = req.params.id
   //const name = req.body.name
   const { name, isDone } = req.body
@@ -89,7 +94,7 @@ app.post('/todos/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 // 刪除功能。
-app.post('/todos/:id/delete', (req, res) => {
+app.delete('/todos/:id', (req, res) => {
   const id = req.params.id
   return Todo.findById(id)
     .then(todo => todo.remove())
