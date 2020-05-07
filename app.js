@@ -13,6 +13,10 @@ require('./config/mongoose')
 
 
 const app = express()
+// 如果在 Heroku 環境則使用 process.env.PORT
+// 否則為本地環境，使用 3000 
+const PORT = process.env.PORT || 3000
+
 
 // 在 app.engine 應用程式裡新增了一個叫 hbs 的樣板引擎,還多了一組設定 extname: '.hbs'，是指定副檔名為 .hbs，有了這行以後，才能把預設的長檔名改寫成短檔名。
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
@@ -28,6 +32,6 @@ app.use(routes)
 
 
 // 設定 port 3000
-app.listen(3000, () => {
-  console.log('App is running on http://localhost:3000')
+app.listen(PORT, () => {
+  console.log(`App is running on http://localhost:${PORT}`)
 })
