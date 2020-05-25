@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/login', (req, res) => {
-  res.render('index')
+  res.render('login')
 })
 
 router.put('/login', (req, res) => {
-  res.render('index')
+  res.render('login')
 })
 
 router.get('/register', (req, res) => {
