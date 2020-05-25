@@ -6,7 +6,7 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.put('/login', (req, res) => {
+router.post('/login', (req, res) => {
   res.render('login')
 })
 
@@ -14,8 +14,31 @@ router.get('/register', (req, res) => {
   res.render('register')
 })
 
-router.put('/register', (req, res) => {
-  res.render('register')
+router.post('/register', (req, res) => {
+  const { name, email, password, password2 } = req.body
+  User.findOne({ email: email }).then(user => {
+    if (user) { // Check the user exist or not 
+      console.log('User already exists')
+      res.render('register', {    //The user has registered
+        name,
+        email,
+        password,
+        password2
+      })
+    } else {
+      const newUser = new User({    // The usr don't exist ,and then add it
+        name,
+        email,
+        password
+      })
+      newUser
+        .save()
+        .then(user => {
+          res.redirect('/')  // After adding it , and then go back to the '/' page
+        })
+        .catch(err => console.log(err))
+    }
+  })
 })
 
 router.get('/logout', (req, res) => {
