@@ -6,6 +6,8 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 // 載入 method-override
 const methodOverride = require('method-override')
+// 載入 express-session
+const session = require('express-session')
 // 引用路由器，引入路由器時，路徑設定為 /routes 就會自動去尋找目錄下叫做 index 的檔案。
 const routes = require('./routes')
 // 引入config中的mongoose
@@ -27,6 +29,12 @@ app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
 // 設定每一筆請求都會透過 methodOverride 進行前置處理
 app.use(methodOverride('_method'))
+//用 app.use 註冊這個 middlewave，並使用 session(option) 來設定相關選項
+app.use(session({
+  secret: 'your secret key',
+  resave: false,
+  saveUninitialized: true,
+}))
 // 將 request 導入路由器
 app.use(routes)
 
