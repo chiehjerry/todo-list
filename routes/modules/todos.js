@@ -8,28 +8,26 @@ router.get('/new', authenticated, (req, res) => {
 })
 router.post('/', authenticated, (req, res) => {
   const name = req.body.name
-  return Todo.create({ name })
+  const userId = req.user._id
+  return Todo.create({ name, userId })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 router.get('/:id', authenticated, (req, res) => {
-  const id = req.params.id
-  return Todo.findById(id)
+  return Todo.findOne({ _id: req.params.id, userId: req.user._id })
     .lean()
     .then(todo => res.render('detail', { todo }))
     .catch(error => console.log(error))
 })
 router.get('/:id/edit', authenticated, (req, res) => {
-  const id = req.params.id
-  return Todo.findById(id)
+  return Todo.findOne({ _id: req.params.id, userId: req.user._id })
     .lean()
     .then(todo => res.render('edit', { todo }))
     .catch(error => console.log(error))
 })
 router.put('/:id', authenticated, (req, res) => {
-  const id = req.params.id
   const { name, isDone } = req.body
-  return Todo.findById(id)
+  return Todo.findOne({ _id: req.params.id, userId: req.user._id })
     .then(todo => {
       todo.name = name
       todo.isDone = isDone === 'on'
@@ -39,8 +37,7 @@ router.put('/:id', authenticated, (req, res) => {
     .catch(error => console.log(error))
 })
 router.delete('/:id', authenticated, (req, res) => {
-  const id = req.params.id
-  return Todo.findById(id)
+  return Todo.findOne({ _id: req.params.id, userId: req.user._id })
     .then(todo => todo.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
