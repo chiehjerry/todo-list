@@ -8,6 +8,8 @@ const home = require('./modules/home')
 const todos = require('./modules/todos')
 // 引入 users 模組程式碼
 const user = require('./modules/user')
+// 引入 auths 模組程式碼
+const auths = require('./modules/auths')
 
 
 // 將網址結構符合 / 字串的 request 導向 home 模組 
@@ -16,6 +18,9 @@ router.use('/', home)
 router.use('/todos', todos)
 // 將網址結構符合 /users 字串開頭的 request 導向 user 模組 
 router.use('/users', user)
+// 將網址結構符合 /auth 字串開頭的 request 導向 auths 模組
+router.use('/auth', auths)
+
 
 
 // 匯出路由器
