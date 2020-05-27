@@ -1,5 +1,7 @@
+// Loading Express and  Express router
 const express = require('express')
 const router = express.Router()
+// Loading Todo model
 const Todo = require('../../models/todo')
 const { authenticated } = require('../../config/auth')
 

@@ -1,11 +1,11 @@
-//載入 mongoose
+// Loading mongoose
 const mongoose = require('mongoose')
 
-// 如果在 Heroku 環境則使用 process.env.MONGODB_URI
-// 否則為本地環境，使用 mongodb://localhost/todo-list
+// Use process.env.MONGODB_URI in Heroku 
+// Use mongodb://localhost/todo-list in localhost
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/todo-list'
 
-// 載入mongoose並設定連線，
+// Loading mongoose , and set connection
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
 const db = mongoose.connection

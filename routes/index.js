@@ -1,27 +1,28 @@
-// 引用 Express 與 Express 路由器
+// Loading Express and  Express router
 const express = require('express')
 const router = express.Router()
-// 準備引入路由模組
-// 引入 home 模組程式碼
+
+// Loading the route modules
+// Loading home module
 const home = require('./modules/home')
-// 引入 todos 模組程式碼
+// Loading todos module
 const todos = require('./modules/todos')
-// 引入 users 模組程式碼
+// Loading users module
 const user = require('./modules/user')
-// 引入 auths 模組程式碼
+// Loading auths module
 const auths = require('./modules/auths')
 
 
-// 將網址結構符合 / 字串的 request 導向 home 模組 
+// The request of wed addres '/' to home module
 router.use('/', home)
-// 將網址結構符合 /todos 字串開頭的 request 導向 todos 模組 
+// The request of wed addres '/todos' to todos module
 router.use('/todos', todos)
-// 將網址結構符合 /users 字串開頭的 request 導向 user 模組 
+// The request of wed addres '/users' to users module
 router.use('/users', user)
-// 將網址結構符合 /auth 字串開頭的 request 導向 auths 模組
+// The request of wed addres '/auth' to auths module
 router.use('/auth', auths)
 
 
 
-// 匯出路由器
+// Export router
 module.exports = router

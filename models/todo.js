@@ -1,16 +1,16 @@
-//載入 mongoose
+// Loading mongoose
 const mongoose = require('mongoose')
-//mongoose.Schema模組
+// mongoose.Schema
 const Schema = mongoose.Schema
 
 const todoSchema = new Schema({
   name: {
-    type: String, // 資料型別是字串
-    required: true // 必填單位
+    type: String, // the type is String
+    required: true // required
   },
   isDone: {
     type: Boolean,
-    default: false,  // 預設完成狀態為 false
+    default: false,  // Default completion status is false
   },
   userId: {
     type: Schema.Types.ObjectId,

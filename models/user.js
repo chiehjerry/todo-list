@@ -1,6 +1,6 @@
-//載入 mongoose
+// Loading mongoose
 const mongoose = require('mongoose')
-//mongoose.Schema模組
+// mongoose.Schema 
 const Schema = mongoose.Schema
 const userSchema = new Schema({
   name: {

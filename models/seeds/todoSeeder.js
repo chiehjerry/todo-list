@@ -1,7 +1,6 @@
-
-// 載入 todo model
+// Loading todo model
 const Todo = require('../todo')
-// // 引入config中的mongoose，並且
+// Loading 'mongoose' in config  
 const db = require('../../config/mongoose')
 
 db.once('open', () => {

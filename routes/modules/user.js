@@ -1,7 +1,11 @@
+// Loading Express and  Express router
 const express = require('express')
 const router = express.Router()
+// Loading passport
 const passport = require('passport')
-const bcrypt = require('bcryptjs') // 載入 bcryptjs library
+// Loading bcryptjs library
+const bcrypt = require('bcryptjs')
+// Loading User model
 const User = require('../../models/user')
 
 
@@ -23,7 +27,7 @@ router.get('/register', (req, res) => {
 router.post('/register', (req, res) => {
   const { name, email, password, password2 } = req.body
 
-  // 加入錯誤訊息提示
+  // Add the errors messages
   let errors = []
 
   if (!name || !email || !password || !password2) {
@@ -45,7 +49,7 @@ router.post('/register', (req, res) => {
   } else {
     User.findOne({ email: email }).then(user => {
       if (user) {
-        // 加入訊息提示
+        // Add the message.
         errors.push({ message: '這個 Email 已經註冊過了' })
         res.render('register', {
           errors,
@@ -80,7 +84,7 @@ router.post('/register', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.logout()
-  // 加入訊息提示
+  //Add the message.
   req.flash('success_msg', '你已經成功登出')
   res.redirect('/users/login')
 })

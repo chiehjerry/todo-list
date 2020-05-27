@@ -1,6 +1,7 @@
-// 引用 Express 與 Express 路由器
+// Loading Express and  Express router
 const express = require('express')
 const router = express.Router()
+// Loading passport
 const passport = require('passport')
 
 router.get(

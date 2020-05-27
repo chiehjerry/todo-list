@@ -18,7 +18,7 @@ module.exports = passport => {
       if (!user) {
         return done(null, false, { message: 'That email is not registered' })
       }
-      //用 bcrypt 來比較「使用者輸入的密碼」跟在使用者資料庫的密碼是否是同一組字串
+      // Use bcrypt to compare the password typed by user between the password in database.
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) throw err
         if (isMatch) {
@@ -37,13 +37,13 @@ module.exports = passport => {
       callbackURL: process.env.FACEBOOK_CALLBACK,
       profileFields: ['email', 'displayName']
     }, (accessToken, refreshToken, profile, done) => {
-      // find and create user
+      // Find and create user
       User.findOne({
         email: profile._json.email
       }).then(user => {
-        // 如果 email 不存在就建立新的使用者
+        // If the email isn't exist , and the new it
         if (!user) {
-          // 因為密碼是必填欄位，所以我們可以幫使用者隨機產生一組密碼，然後用 bcrypt 處理，再儲存起來
+          // Because the password is required , so make a password randomly , then use bcrypt , and then store it.
           var randomPassword = Math.random().toString(36).slice(-8)
           bcrypt.genSalt(10, (err, salt) =>
             bcrypt.hash(randomPassword, salt, (err, hash) => {
@@ -67,7 +67,7 @@ module.exports = passport => {
   )
 
 
-  //Serialize and Deserialize 
+  // Serialize and Deserialize 
   passport.serializeUser((user, done) => {
     done(null, user.id)
   })
